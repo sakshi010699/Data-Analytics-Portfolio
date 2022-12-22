@@ -1,0 +1,239 @@
+import sys
+!{sys.executable} -m pip install praw
+import praw
+import json
+reddit= praw.Reddit(client_id='EIo9GihRq7-zJtyDCNgAow', #
+                    client_secret='WiSPYSMQ3QXMBSEo-i1jR2e3mYmqDA',
+                    user_agent='testing_api',
+                    username='scholar8981',
+                    password='Bozo1001@',)
+subred=reddit.subreddit('learnpython')
+subred2= reddit.subreddit('FIFA')
+#.hot
+#. new
+#. controversial
+hot= subred.hot(limit=11)
+new=subred.new(limit=10)
+contro=subred.controversial(limit=10)
+top=subred.top(limit=11)
+type(new)
+x=next(hot)
+dir(x)
+for i in hot:
+    print(i.title, i.url,i.upvote_ratio )
+hot2= subred2.hot(limit=11)
+new2=subred2.new(limit=10)
+contro2=subred2.controversial(limit=10)
+y = next(hot2)
+dir(y)
+for i in hot2:
+    print(i.title)
+    print(i.url)
+    print(i.author)
+    print(i.ups)
+for i in new2:
+    print(i.title)
+   
+ 
+import pandas as pd
+import numpy as np
+import matplotlib.pyplot as plt
+import seaborn as sns
+items=set()
+for i in reddit.subreddit('FIFA').hot(limit=50):
+    print(i.title)
+    items.add(i.title)
+    
+print(items)
+df=pd.DataFrame(items)
+df.head()
+df.to_csv('items.csv',header=False, encoding='utf-8', index= False)
+pip install nltk
+# FIFA setiment analysis
+import nltk
+nltk.download('vader_lexicon')#sentiment analyser
+import sys
+!{sys.executable} -m pip install nltk
+pip install nltk
+import nltk
+nltk.download()
+ 
+import sys
+!{sys.executable} -m pip install nltk
+import nltk
+nltk.download()
+import socket
+socket.getaddrinfo('localhost', 8080)
+nltk.download('all')
+ 
+text=open('RedditHeadlines.txt', encoding='utf-8').read()
+print(text)
+lower_case=text.lower()
+lower_case
+#cleaning the text of  punctuations
+import string
+cleaned_text=lower_case.translate(str.maketrans('','',string.punctuation))
+print(cleaned_text)
+#tokenization and omitting stop words
+tokenized_words=cleaned_text.split()
+print(tokenized_words)
+stop_words = ["i", "me", "my", "myself", "we", "our", "ours", "ourselves", "you", "your", "yours", "yourself",
+              "yourselves", "he", "him", "his", "himself", "she", "her", "hers", "herself", "it", "its", "itself",
+              "they", "them", "their", "theirs", "themselves", "what", "which", "who", "whom", "this", "that", "these",
+              "those", "am", "is", "are", "was", "were", "be", "been", "being", "have", "has", "had", "having", "do",
+              "does", "did", "doing", "a", "an", "the", "and", "but", "if", "or", "because", "as", "until", "while",
+              "of", "at", "by", "for", "with", "about", "against", "between", "into", "through", "during", "before",
+              "after", "above", "below", "to", "from", "up", "down", "in", "out", "on", "off", "over", "under", "again",
+              "further", "then", "once", "here", "there", "when", "where", "why", "how", "all", "any", "both", "each",
+              "few", "more", "most", "other", "some", "such", "no", "nor", "not", "only", "own", "same", "so", "than",
+              "too", "very", "s", "t", "can", "will", "just", "don", "should", "now"]
+final_words= []
+for word in tokenized_words:
+    if word not in stop_words:
+        final_words.append(word)
+print(final_words)
+#inserting emotions list
+emotions_list = []
+with open('Emotions.txt', 'r') as f:
+    for line in f:
+        clear_line = line.replace("\n", '').replace(",", '').replace("'", '').strip()
+        word, emotion = clear_line.split(':')
+
+        if word in final_words:
+            emotions_list.append(emotion)
+            
+print(emotions_list)
+from collections import Counter
+x=Counter(emotions_list)
+print(x)
+#plotting these emotions using matplotlib
+import matplotlib.pyplot as plt
+plt.bar(x.keys(), x.values())
+plt.savefig('RedditSentimentAnalysis50.png')
+plt.show()
+items=set()
+for i in reddit.subreddit('FIFA').hot(limit=None):
+    print(i.title)
+    items.add(i.title)
+ 
+import pandas as pd
+df1=pd.DataFrame(items)
+df1.head()
+df1.to_csv('RedditHeadlinesNoLimit.csv',header=False, encoding='utf-8', index= False)
+text2=open('RedditHeadlinesNoLimit.txt', encoding='utf-8').read()
+print(text2)
+lower_case=text2.lower()
+
+#cleaning the text of  punctuations
+import string
+cleaned_text=lower_case.translate(str.maketrans('','',string.punctuation))
+
+#tokenization and omitting stop words
+tokenized_words=cleaned_text.split()
+
+final_words= []
+for word in tokenized_words:
+    if word not in stop_words:
+        final_words.append(word)
+        
+#inserting emotions list
+emotions_list = []
+with open('Emotions.txt', 'r') as f:
+    for line in f:
+        clear_line = line.replace("\n", '').replace(",", '').replace("'", '').strip()
+        word, emotion = clear_line.split(':')
+
+        if word in final_words:
+            emotions_list.append(emotion)
+            
+print(emotions_list)
+from collections import Counter
+x=Counter(emotions_list)
+print(x)
+plt.bar(x.keys(), x.values())
+plt.savefig('graph.png')
+plt.show()
+fig, ax1= plt.subplots()
+plt.bar(x.keys(), x.values())
+fig.autofmt_xdate()
+plt.savefig('RedditSentimentAnalysisNoLimit.png')
+plt.show()
+
+
+
+#Sentiment Analysis of Priyanka Chopra's women Empowerment speech
+
+text3=open('PriyankaChopraSpeechOnWomenEmpowerment.txt', encoding='utf-8').read()
+
+# print(text3)
+lower_case=text3.lower()
+
+#cleaning the text of  punctuations
+import string
+cleaned_text=lower_case.translate(str.maketrans('','',string.punctuation))
+
+#tokenization and omitting stop words
+tokenized_words=cleaned_text.split()
+
+final_words= []
+for word in tokenized_words:
+    if word not in stop_words:
+        final_words.append(word)
+        
+#inserting emotions list
+emotions_list = []
+with open('Emotions.txt', 'r') as f:
+    for line in f:
+        clear_line = line.replace("\n", '').replace(",", '').replace("'", '').strip()
+        word, emotion = clear_line.split(':')
+
+        if word in final_words:
+            emotions_list.append(emotion)
+            
+w=Counter(emotions_list)
+print(w)
+
+fig2, ax2= plt.subplots()
+plt.bar(w.keys(), w.values())
+fig2.autofmt_xdate()
+plt.savefig('PCSpeech.png')
+plt.show()
+
+
+
+#Sentiment Analysis of Mark Zuckerberg's Harvard speech
+
+text2=open('MarkZuckerbergSpeechatHarvard.txt', encoding='utf-8').read()
+
+
+lower_case=text2.lower()
+
+#cleaning the text of  punctuations
+import string
+cleaned_text=lower_case.translate(str.maketrans('','',string.punctuation))
+
+#tokenization and omitting stop words
+tokenized_words=cleaned_text.split()
+
+final_words= []
+for word in tokenized_words:
+    if word not in stop_words:
+        final_words.append(word)
+        
+#inserting emotions list
+emotions_list = []
+with open('Emotions.txt', 'r') as f:
+    for line in f:
+        clear_line = line.replace("\n", '').replace(",", '').replace("'", '').strip()
+        word, emotion = clear_line.split(':')
+
+        if word in final_words:
+            emotions_list.append(emotion)
+            
+x=Counter(emotions_list)
+
+fig3, ax1= plt.subplots()
+plt.bar(x.keys(), x.values())
+fig.autofmt_xdate()
+plt.savefig('MarkZuckerbergSpeech.png')
+plt.show()
