@@ -11,4 +11,7 @@ Table of Contents
 
  4. Tableau: IPL 2008-2020 viz
 
+ 5. Python: EDA on Zomato and Spotify dataset
+ 
+ 6. Python: Global Plastic Waste Data Analysis
 
