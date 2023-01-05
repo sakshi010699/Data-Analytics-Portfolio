@@ -15,3 +15,6 @@ Table of Contents
  
  6. Python: Global Plastic Waste Data Analysis
 
+ 7. Python: Ethereum NFT Analysis
+ 
+ 8. Python: Uncover McDonald's healthiest meal
